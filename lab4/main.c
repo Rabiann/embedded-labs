@@ -43,6 +43,14 @@ Node* new(Data data) {
     return node;
 }
 
+Node* clean(Node* node) {
+    Node* next = node->next;
+    free(node);
+    if (next) {
+        clean(next);
+    }
+}
+
 Node* add(Node* node, Data data) {
     Node* next = malloc(sizeof(Node));
     next->data = data;
@@ -93,5 +101,6 @@ int main() {
     Node* list = new(data1);
     add(add(list, data2), data3);
     print_node(list);
+    clean(list);
     return 0;
 }
